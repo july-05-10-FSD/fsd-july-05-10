@@ -6,66 +6,63 @@ app.use(express.json());
 
 mongoose.connect("mongodb+srv://snandhadeveloper592000:nandha56200@cluster0.s6ufz.mongodb.net/server_006?retryWrites=true&w=majority&appName=Cluster0")
 .then(() => {
-    console.log("MongoDb Connected");    
+    console.log("MongoDB Connected");    
 })
-.catch((e) => {
-    console.log(`connection error: ${e.message}`);    
+.catch((err) => {
+    console.log(`Connection Error: ${err.message}`);    
 });
 
 
 const registerSchema = new mongoose.Schema({
-    userName: {
+    userpostName: {
         type: String
     },
     email: {
         type: String,
-        unique: true,
-        trim: true
+        trim: true,
+        required: true,
+        unique: true
     },
-    age: {
-        type: Number,
-        required: true
+    mobileNo: {
+        type: Number
     },
-    userType: {
+    password: {
         type: String,
-        default: "Test"
+        require: true
     },
-    role: {
-        type: String,
-        enum: ["teacher", "student", "parent"]
+    created: {
+        type: String
     }
-}, { timestamps: true });
+},
+{timestamps: true});
 
 
 const register = mongoose.model("register", registerSchema);
 
 
 
-app.post("/register", async (req, res) => {
+app.post("/register", async(req, res)=> {
 try {
-    let createUser = await register.create(req.body);
+    let { email, ...restBody } = req.body;
+    const checkEmail = await register.findOne({email});
+    if (checkEmail) {
+       return res.status(409).json({Message: "Email Already Exists.."})
+    }
+    let data = {
+        ...req.body,
+        created: "success"
+    }
+    const createUser = await register.create(data);
     res.json({
         createUser,
         message: "user created"
-    });
-    
+    });    
 } catch (error) {
     res.json({
         Error: error
     })
 }
-});
-
-
-
-
-
-
-
-
-
-
-
+})
 
 
 
