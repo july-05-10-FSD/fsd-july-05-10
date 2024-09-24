@@ -1,14 +1,14 @@
 const express = require("express");
+const cors = require("cors");
 const connection = require("./config/connection");
 const router = require("./routes/register.route");
-const accountRouter = require("./routes/account.route");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
+app.use(cors('*'));
 connection();
 
 app.use(router);
-app.use(accountRouter);
 
 app.use("/", (req, res) => {
     res.send("Server is alive")

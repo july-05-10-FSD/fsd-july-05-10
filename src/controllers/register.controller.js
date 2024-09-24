@@ -1,4 +1,5 @@
 const register = require("../models/register.model");
+const submitModel = require("../models/submit.model");
 const passwordGenerator = require("../utils/generatePassword");
 const mailSend = require("../utils/sendEmail");
 const bcrypt = require("bcrypt");
@@ -47,7 +48,30 @@ const login = async (req, res) => {
     };
 };
 
+
+const submit = async (req, res) => {
+    try {
+        let save = await submitModel.create(req.body);
+        res.json({save, message: "data saved"})
+        
+    } catch (error) {
+        res.json({Error: error.message})
+    }
+};
+
+
+const getSubmit = async (req, res) => {
+    try {
+        let findData = await submitModel.find();
+        res.json({findData})
+    } catch (error) {
+        res.json({Error: error.message})
+    }
+}
+
 module.exports = {
     userRegister,
-    login
+    login,
+    submit,
+    getSubmit
 }
