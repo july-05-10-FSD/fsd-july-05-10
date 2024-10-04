@@ -13,6 +13,7 @@ import Categories from "./SidebarComp/Categories";
 import Setting from "./Setting";
 import IndexComponent from "./IndexComponent";
 import CounterApp from "./CounterApp";
+import ListAndKeys from "./ListAndKeys";
 
 const Routers = () => {
   return (
@@ -41,6 +42,7 @@ const Routers = () => {
           <Route path="/setting/:sampleid" element={<Setting />} />
           //Normal route
           <Route path="/function" element={<CounterApp />} />
+          <Route path="/listkeys" element={<ListAndKeys/>}/>
           //Page not found route
           <Route path="*" element={<h1>Page not found 404</h1>} />
         </Routes>

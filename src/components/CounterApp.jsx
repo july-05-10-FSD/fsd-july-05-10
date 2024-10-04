@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Count = ({ count }) => {
   return <p className="text-center mb-5">Counter {count}</p>;
@@ -21,6 +21,14 @@ const CounterApp = () => {
 
   const location = useLocation();
 
+  // if (!location.state) {
+  //   return (
+  //     <div>
+  //       Something went wrong! <Link to={"/nav"}>Navigate to Home</Link>
+  //     </div>
+  //   );
+  // }
+
   const handleDecrement = () => {
     setCount((prevCount) => prevCount - 1);
   };
@@ -33,16 +41,10 @@ const CounterApp = () => {
     setCount(0);
   };
 
-  // function Fetch() {
-  //   console.log("fetching..");
-  // }
-
-  // Fetch();
-
   return (
     <div>
       <Count count={count} />
-      <p>{location.state}</p>
+      <p>{location.state ? location.state : "There are no data"}</p>
       <div className="flex gap-3">
         <ButtonComp btnName={"Decrement"} handleFunction={handleDecrement} />
         <ButtonComp btnName={"Reset"} handleFunction={handleReset} />
