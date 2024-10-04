@@ -1,4 +1,5 @@
 const fileUploaded =require("../models/file.model");
+const fs = require("fs");
 
 const createfile = async ( req,res)=>{
     try {
@@ -45,8 +46,41 @@ const getfileId = async(req,res)=>{
     }
 }
 
+const editFile = async (req,res) =>{
+    try {
+        let {_id} = req.query;
+        let newFile = req.file;
+        let findOldFile = await fileUploaded.findById(_id);
+        if(!findOldFile){
+            return res.status(404).json({message:"data not found"});
+        }
+        fs.unlinkSync(`${findOldFile.destination}${findOldFile.filename}`)
+        let update = await fileUploaded.findByIdAndUpdate(_id,newFile,{new:true});
+        res.json(update);
+    } catch (error) {
+        res.json(error.messgae)
+    }
+}
+
+const deleteFile = async(req,res) =>{
+    try {
+        let {_id} = req.query;
+        let deleteFile = await fileUploaded.findById(_id);
+        if(!deleteFile){
+            return res.status(404).json({message:"data not found"});
+        } 
+        fs.unlinkSync(`${deleteFile.destination}${deleteFile.filename}`);
+        await deleteFile.deleteOne();
+        res.json({message:"File deleted"})
+    } catch (error) {
+        res.json(error.message)
+    }
+}
+
 module.exports = {
     createfile,
     getfile,
-    getfileId
+    getfileId,
+    editFile,
+    deleteFile
 };

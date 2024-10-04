@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors('*'));
 connection();
 
+app.use("/static",express.static("src/public/profile/"))
 app.use(router);
 app.use("/v1",filerouter);
 

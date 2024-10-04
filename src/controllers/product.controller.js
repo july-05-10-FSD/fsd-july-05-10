@@ -148,6 +148,8 @@ const deletebyOne =async(req,res)=>{
     }
  }
 
+
+
 module.exports = {
     createProduct,
     getProduct,
