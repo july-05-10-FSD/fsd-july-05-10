@@ -14,9 +14,6 @@ const productSchema = new mongoose.Schema(
         price:{
             type:Number,
         },
-        expire:{
-            type:String,
-        },
         userId:{
             type:String,
         },
@@ -26,6 +23,6 @@ const productSchema = new mongoose.Schema(
     }
 ,{timestamps:true})
 
-const product = mongoose.model("product",productSchema) 
+const product = mongoose.model("product_backend",productSchema) 
 
 module.exports = product

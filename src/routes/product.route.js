@@ -3,10 +3,10 @@ const router = express.Router();
 const controller = require("../controllers/product.controller");
 const {verifyToken}= require("../middlewares/authToken");
 
-router.use(verifyToken)
+// router.use(verifyToken)
 
 router
-.route("/product")
+.route("/product_backend")
 .post(controller.createProduct)
 .get(controller.getProduct)
 .put(controller.updateId)

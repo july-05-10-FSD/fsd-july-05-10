@@ -2,14 +2,14 @@ const product = require("../models/product.model");
 
 const createProduct = async (req,res)=>{
     try {
-        let userId=req.userId
+        // let userId=req.userId
         let data={
             ...req.body,
-            userId
+            // userId
             
         }
         const saveProduct = await product.create(data);
-        res.json({saveProduct})
+        res.json({saveProduct, message:"product created successfully"})
     } catch (error) {
         res.json(error.message)
     }
@@ -18,12 +18,14 @@ const createProduct = async (req,res)=>{
 
 const getProduct = async(req,res)=>{
     try {
-        let userId = req.userId
+        // let userId = req.userId
 
-        const getData= await product.find({userId})
-        if(!getData || getData.length===0){
-            return res.status(404).json({message:"No Data Found"})
-        }
+        // const getData= await product.find({userId})
+        const getData= await product.find()
+
+        // if(!getData || getData.length===0){
+        //     return res.status(404).json({message:"No Data Found"})
+        // }
         res.json(getData)
 
     } catch (error) {
@@ -67,7 +69,7 @@ const updateId = async(req,res)=>{
         if(!updatedId){
             return res.status(404).json({message:"Id Not Found"})
         }
-        res.json(updatedId)
+        res.json({updatedId, message:"Product Updated Sucessfully"})
     } catch (error) {
         res.json(error.message)
     }
@@ -111,7 +113,7 @@ const deletId = async(req,res)=>{
         if(!deletbyId){
             return res.status(404).json({message:"Id Not Found"})
         }
-        res.json(deletbyId)
+        res.json({deletbyId ,message:"product Deleted successfully"})
     } catch (error) {
         res.json(error.message)
     }
