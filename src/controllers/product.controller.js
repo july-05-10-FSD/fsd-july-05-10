@@ -6,7 +6,6 @@ const createProduct = async (req,res)=>{
         let data={
             ...req.body,
             // userId
-            
         }
         const saveProduct = await product.create(data);
         res.json({saveProduct, message:"product created successfully"})
@@ -19,10 +18,8 @@ const createProduct = async (req,res)=>{
 const getProduct = async(req,res)=>{
     try {
         // let userId = req.userId
-
         // const getData= await product.find({userId})
         const getData= await product.find()
-
         // if(!getData || getData.length===0){
         //     return res.status(404).json({message:"No Data Found"})
         // }
@@ -91,7 +88,7 @@ const updatebyOne = async(req,res)=>{
         res.json(error.message)
     }
 }
-
+  
 const updatemany =async(req,res)=>{
     try {
         let userId =req.userId
